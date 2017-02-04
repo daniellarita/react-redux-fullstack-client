@@ -4,6 +4,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {connect} from 'react-redux';
 import Winner from './Winner';
 import Vote from './Vote';
+// imports all action_creators
+import * as actionCreators from '../action_creators';
 
 // pure / dumb component
 export const Voting = React.createClass({
@@ -20,9 +22,13 @@ export const Voting = React.createClass({
 function mapStateToProps(state) {
   return {
     pair: state.getIn(['vote', 'pair']),
+    hasVoted: state.get('hasVoted'),
     winner: state.get('winner')
   };
 }
 
 // connected / smart component
-export const VotingContainer = connect(mapStateToProps)(Voting);
+export const VotingContainer = connect(
+  mapStateToProps,
+  actionCreators
+)(Voting);
